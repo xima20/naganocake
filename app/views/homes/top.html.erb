@@ -1,0 +1,32 @@
+<div class='body'>
+	<div class='container'>
+		<div class="row content">
+			<div class="col-xs-3">
+     			<%= render 'shared/genre' %>
+     		</div>
+	 	    <div class="col-xs-9">
+                <div class="mainimage">
+                	<div class="maintext"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row content">
+              <div class="col-xs-3">
+              </div>
+              <div class="col-xs-9">
+               <h2>オススメ商品</h2>
+               <% @items.each do |item| %>
+               <%= link_to item_path(item.id) do %>
+
+                <div  class="item">
+               <%= attachment_image_tag item, :image, :fill, 100, 100, format: 'jpeg' %></br>
+               <%= item.name %></br>
+               ￥<%= item.nontaxed_price %></br>
+                </div>
+                <% end %>
+                <% end %>
+                <%= link_to "もっと見る", items_path, class: "pull-right" %>
+              </div>
+        </div>
+      </div>
+    </div>

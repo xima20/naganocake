@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>naganoCAKE</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>naganoCAKE</title>
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,600,700' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' rel='stylesheet' type='text/css'>
+  </head>
+
+  <body>
+    <header class="navbar navbar-inverse">
+      <div class="container">
+        <%= link_to admin_root_path do %>
+      <h1><font color="white">管理者LOGO</font></h1>
+        <% end %>
+      <% if admin_signed_in? %>
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+            </li>
+          
+          <li>
+           <%= link_to "商品一覧", admin_items_path, class: "glyphicon glyphicon-user users" %>
+          </li>
+          <li>
+           <%= link_to "会員一覧", admin_customers_path, class: "glyphicon glyphicon-user users" %>
+          </li>
+          <li>
+            <%=link_to "注文履歴一覧", admin_orders_path, class: "glyphicon glyphicon-user users" %>
+          </li>
+          <li>
+            <%=link_to "ジャンル一覧", admin_genres_path, class: "glyphicon glyphicon-user users" %>
+          </li>
+         <li>
+            <%=link_to "ログアウト", destroy_admin_session_path, method: "delete", class: "glyphicon glyphicon-user users" %>
+          </li>
+
+        </ul>
+        </nav>
+      <% else %>
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+           <%= link_to "商品一覧", items_path, class: "glyphicon glyphicon-home home" %>
+          </li>
+          <li>
+           <%= link_to "新規登録", new_customer_registration_path, class: "glyphicon glyphicon-home home" %>
+          </li>
+          
+          <li>
+           <%= link_to "ログイン", new_admin_session_path, class: "glyphicon glyphicon-home home" %>
+          </li>
+          
+        </ul>
+
+        </nav>
+      <% end %>
+    </div>
+    </header>
+
+
+
+
+    <%= yield %>
+  </body>
+</html>

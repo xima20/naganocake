@@ -1,0 +1,55 @@
+<div class='body'>
+  <div class='container'>
+    <div class="row content">
+
+       <h1>配送先登録/一覧</h1>
+       <%= form_for(@shipment, url: shipments_path) do |f| %>
+       <table>
+       <tr>
+       	  <td>郵便番号(ハイフンなし)</td>
+       	  <td><%= f.text_field :post_code, autofocus: true %></td>
+       </tr>
+       <tr>
+       <td>住所</td>
+       <td><%= f.text_field :address, autofocus: true %></td>
+       </tr>
+       <tr>
+       <td>宛名</td>
+       <td><%= f.text_field :name, autofocus: true %></td>
+       <td> <%= f.submit '登録する', class: "btn btn-success" %></td>
+       </tr>
+       </table>
+
+       <% end %>
+       <div class="magin">
+       <div class="col-xs-7">
+       <table  class="table table-bordered">
+	       <thead>
+		   <tr>
+			  <th>郵便番号</th>
+			  <th>住所</th>
+			  <th>宛名</th>
+			  <th></th>
+			  <th></th>
+		   </tr>
+	       </thead>
+	       <tbody>
+		      <% @shipments.each do |shipments| %>
+		      <tr>
+		 	  <td><%= shipments.post_code %></td>
+			  <td><%= shipments.address %></td>
+		      <td><%= shipments.name %></td>
+		      <td><%= link_to "編集する", edit_shipment_path(shipments),class: "btn btn-primary"  %></td>
+		      <td><%= link_to "削除する", shipment_path(shipments), method: :delete, class: "btn btn-danger" %></td>
+		      </tr>
+	          <% end %>
+	      </tbody>
+        </table>
+       </div>
+      </div>
+    </div>
+ </div>
+</div>
+
+
+

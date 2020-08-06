@@ -1,0 +1,68 @@
+<div class='body'>
+  <div class='container'>
+    <div class="row content">
+        <h1>注文履歴詳細</h1>
+        <table>
+	    <tbody>
+		<tr>
+			<td>購入者</td>
+			<td><%= @order.customer.name_set %></td>
+		</tr>
+		<tr>
+			<td>配送先</td>
+			<td><%= @order.post_code %><%= @order.address %><br>
+			    <%= @order.name %>
+			</td>
+		</tr>
+		<tr>
+			<td>支払方法</td>
+			<td><%= @order.pay_method %></td>
+		</tr>
+		<tr>
+			<td>注文ステータス</td>
+			<td>
+			<%= form_for(@order, url:admin_order_path) do |f|%>
+		    <%= f.select :order_status, [['入金待ち','入金待ち'],['入金確認','入金確認'],['製作中','製作中'],['発注準備中','発注準備中'],['発注済み','発注済み']], { include_blank: @order.order_status,　selected: true } %>
+			<%= f.submit "更新", class:"btn btn-primary" %>
+			<% end %>
+			</td>
+		</tr>
+	    </tbody>
+       </table>
+        <table class="table table-bordered">
+        <thead class="thead-lignt">
+		<tr>
+			<th>商品名</th>
+			<th>単価(税込)</th>
+			<th>数量</th>
+			<th>小計</th>
+			<th>製作ステータス</th>
+  
+		  </tr>
+     	</thead>
+     	<tbody>
+	    	<% @order_items.each do |order_items| %>
+		<tr>
+			<td><%= order_items.item.name %></td>
+			<td><%= order_items.price %></td>
+			<td><%= order_items.quantity %></td>
+			<td><%= order_items.quantity * order_items.price %></td>
+			<td>
+				<%= form_with(model: order_items, local: true, url: {action: 'order_item_update'}) do |f| %>
+				<%= f.hidden_field :orderid, value: @order.id %>
+				<%= f.hidden_field :orederitemid, value: order_items.id %>
+				<%= f.select :making_status, [['着手可能','着手可能'],['着手不可','着手不可'],['製作待ち','製作待ち'],['製作中','製作中'],['製作完了','製作完了']], { include_blank: order_items,　selected: true } %>
+
+				<%= f.submit "更新", class:"btn btn-primary" %>
+				<% end %>
+
+			</td>
+			
+	    	</tr>
+		<% end %>
+    	</tbody>
+        </table>
+      </div>
+   </div>
+</div>
+

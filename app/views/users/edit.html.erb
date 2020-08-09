@@ -1,0 +1,20 @@
+<h2>User info</h2>
+<%= form_for(@user) do |f| %>
+   
+<label >Name</label>
+<%= f.text_field :name, autofocus: true,  placeholder:"NAME"%>
+        
+    <div >S
+        <label>introduction</label>
+         <%= f.text_field :introduction %>
+        
+    </div>
+  <label>Image</label>
+    <div class="user-edit-image">
+ <!-- <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, class: "img-circle pull-left profile-thumb", fallback: "no_image.jpg"%> -->
+    </div> 
+    
+    <%= f.attachment_field :profile_image, placeholder: "プロフィール画像", class: "user-edit-form" %>
+  
+    <%= f.submit "Update User", class:"user-edit-form" %>
+<% end %>
